@@ -23,4 +23,14 @@ Matrix::Matrix(const Matrix& obj) {
 
 Matrix::~Matrix() {}
 
+// Get the number of rows of matrix
+unsgined Matrix::get_rows() const {
+    return this->rows;
+}
+
+// Get the number of columns of matrix
+unsigned Matrix::get_cols() const {
+    return this->cols;
+}
+
 #endif

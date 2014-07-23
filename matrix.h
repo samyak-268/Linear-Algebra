@@ -14,6 +14,11 @@ class Matrix {
         Matrix(unsigned _rows, unsigned _cols, int _init_value);
         Matrix(const Matrix& obj);
         ~Matrix();
+	
+	// Acessing the row and column sizes
+	unsigned get_rows() const;
+	unsgined get_cols() const;
+
 };
 
 #include "matrix.cpp"
