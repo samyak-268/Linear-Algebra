@@ -23,6 +23,58 @@ Matrix::Matrix(const Matrix& obj) {
 
 Matrix::~Matrix() {}
 
+// Addition of two matrices
+Matrix Matrix::operator+(const Matrix& rhs) {
+    Matrix res(rows,cols,0);
+
+    for(unsigned i = 0;i < rows;i++) {
+        for(unsigned j = 0;j < cols;j++) {
+	    res(i,j) = this->matrix[i][j] + rhs(i,j);
+	}
+    }
+
+    return res;
+}
+
+// Cumulative addition of this matrix with another matrix
+Matrix& Matrix::operator+=(const Matrix& rhs) {
+    unsigned rows = rhs.get_rows();
+    unsigned cols = rhs.get_cols();
+
+    for(unsigned i = 0;i < rows;i++) {
+        for(unsigned j = 0;j < cols;j++) {
+	    this->matrix[i][j] += rhs(i,j);
+	}
+    }
+    return *this;
+}
+
+// Subtraction of two matrices
+Matrix Matrix::operator-(const Matrix& rhs) {
+    Matrix res(rows,cols,0);
+
+    for(unsigned i = 0;i < rows;i++) {
+        for(unsigned j = 0;j < cols;j++) {
+	    res(i,j) = this->matrix[i][j] - rhs(i,j);
+        }
+    }
+
+    return res;
+}
+
+// Cumulative subtraction of two matrices
+Matrix& Matrix::operator-=(const Matrix& rhs) {
+    unsigned rows = rhs.get_rows();
+    unsigned cols = rhs.get_cols();
+
+    for(unsigned i = 0;i < rows;i++) {
+        for(unsigned j = 0;j < cols;j++) {
+	    this->matrix[i][j] -= rhs(i,j);
+	}
+    }
+    return *this;
+}
+
 // Get the number of rows of matrix
 unsgined Matrix::get_rows() const {
     return this->rows;
