@@ -15,6 +15,12 @@ class Matrix {
         Matrix(const Matrix& obj);
         ~Matrix();
 	
+	// Basic Matrix mathematical operations
+	Matrix operator+(const Matrix& rhs);
+	Matrix& operator+=(const Matrix& rhs);
+	Matrix operator-(const Matrix& rhs);
+	Matrix& operator-=(const Matrix& rhs);
+	
 	// Acessing the row and column sizes
 	unsigned get_rows() const;
 	unsgined get_cols() const;
