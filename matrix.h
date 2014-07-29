@@ -15,20 +15,23 @@ class Matrix {
         Matrix(const Matrix& obj);
         ~Matrix();
 
-    // Displaying matrix
-    void Display();
+        // Displaying matrix
+        void Display();
 	
-    // Basic Matrix mathematical operations
-	Matrix operator+(const Matrix& rhs);
-	Matrix& operator+=(const Matrix& rhs);
-	Matrix operator-(const Matrix& rhs);
-	Matrix& operator-=(const Matrix& rhs);
-    void ScalarMultiply(int scalar);
-	
-	// Acessing the row and column sizes
-	unsigned get_rows() const;
-	unsigned get_cols() const;
+        // Basic Matrix mathematical operations
+        Matrix operator+(const Matrix& rhs);
+        Matrix& operator+=(const Matrix& rhs);
+        Matrix operator-(const Matrix& rhs);
+        Matrix& operator-=(const Matrix& rhs);
+        void ScalarMultiply(int scalar);
+        
+        // Acessing the row and column sizes
+        unsigned GetNumRows() const;
+        unsigned GetNumCols() const;
 
+        // Acessing the row and column sizes
+        vector<int> GetRow(int index);
+        vector<int> GetCol(int index);
 };
 
 #include "matrix.cpp"

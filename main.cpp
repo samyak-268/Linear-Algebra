@@ -16,7 +16,20 @@ int main()
     Matrix mat_diff = mat1 - mat2;
     mat_sum.Display();  cout << "\n";
     mat_diff.Display(); cout << "\n";
-    
+
+    // Test for fetching row and column by their indices
+    vector<int> second_row = mat1.GetRow(1);
+    vector<int> first_col = mat1.GetCol(0);
+
+    cout << "\nThe second row of the matrix: \n";
+    for(int i = 0; i < second_row.size(); ++i)
+        cout << second_row[i] << "  ";
+    cout << "\n";
+
+    cout << "\nThe first column of the matrix: \n";
+    for(int i = 0; i < first_col.size(); ++i)
+        cout << first_col[i] << "  ";
+    cout << "\n";
 
     return 0;
 }

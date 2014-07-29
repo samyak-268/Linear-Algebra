@@ -48,8 +48,8 @@ Matrix Matrix::operator+(const Matrix& rhs) {
 
 // Cumulative addition of this matrix with another matrix
 Matrix& Matrix::operator+=(const Matrix& rhs) {
-    unsigned rows = rhs.get_rows();
-    unsigned cols = rhs.get_cols();
+    unsigned rows = rhs.GetNumRows();
+    unsigned cols = rhs.GetNumCols();
 
     for(unsigned i = 0;i < rows;i++) {
         for(unsigned j = 0;j < cols;j++) {
@@ -74,8 +74,8 @@ Matrix Matrix::operator-(const Matrix& rhs) {
 
 // Cumulative subtraction of two matrices
 Matrix& Matrix::operator-=(const Matrix& rhs) {
-    unsigned rows = rhs.get_rows();
-    unsigned cols = rhs.get_cols();
+    unsigned rows = rhs.GetNumRows();
+    unsigned cols = rhs.GetNumCols();
 
     for(unsigned i = 0;i < rows;i++) {
         for(unsigned j = 0;j < cols;j++) {
@@ -97,13 +97,26 @@ void Matrix::ScalarMultiply(int scalar) {
 }
 
 // Get the number of rows of matrix
-unsigned Matrix::get_rows() const {
+unsigned Matrix::GetNumRows() const {
     return this->rows;
 }
 
 // Get the number of columns of matrix
-unsigned Matrix::get_cols() const {
+unsigned Matrix::GetNumCols() const {
     return this->cols;
+}
+
+// Return the row at the specified index
+vector<int> Matrix::GetRow(int index) {
+    return this->matrix[index];
+}
+
+// Return the column at the specified index
+vector<int> Matrix::GetCol(int index) {
+    vector<int> column;
+    for(int i = 0; i < this->rows; ++i)
+        column.push_back(this->matrix[i][index]);
+    return column;
 }
 
 #endif
