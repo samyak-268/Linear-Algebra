@@ -29,9 +29,13 @@ class Matrix {
         unsigned GetNumRows() const;
         unsigned GetNumCols() const;
 
-        // Acessing the row and column sizes
+        // Acessing the row and columns by indices
         vector<int> GetRow(int index);
         vector<int> GetCol(int index);
+
+        // Matrix-Vector multiplication
+        vector<int> ColVectorMultiply(vector<int> vec);
+        vector<int> RowVectorMultiply(vector<int> vec);
 };
 
 #include "matrix.cpp"

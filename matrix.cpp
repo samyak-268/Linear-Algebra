@@ -119,4 +119,47 @@ vector<int> Matrix::GetCol(int index) {
     return column;
 }
 
+// Multiply a matrix with a column vector
+vector<int> Matrix::ColVectorMultiply(vector<int> vec) {
+    vector<int> result;
+    result.resize(vec.size());
+    
+    if(this->cols != vec.size()) {
+        cout << "Incompatible dimensions!\n";
+        return result;
+    }
+
+    int partial_sum;
+    for(int i = 0; i < this->rows; ++i) {
+        partial_sum = 0;
+        for(int j = 0; j < this->cols; ++j)
+            partial_sum += (this->matrix[i][j] * vec[j]);
+
+        result[i] = partial_sum;
+    }
+    return result;
+}
+
+// Multiply a row vector with a matrix
+vector<int> Matrix::RowVectorMultiply(vector<int> vec) {
+    vector<int> curr_row, sum_rows;
+    curr_row.resize(vec.size());
+    sum_rows.resize(vec.size(), 0);
+
+    if(this->rows != vec.size()) {
+        cout << "Incompatible dimensions!\n";
+        return sum_rows;
+    }
+
+    for(int i = 0; i < this->rows; ++i) {
+        curr_row = GetRow(i);
+        for(int j = 0; j < curr_row.size(); ++j)
+            curr_row[j] = curr_row[j] * vec[i];
+        for(int j = 0; j < curr_row.size(); ++j)
+            sum_rows[j] += curr_row[j];
+    }
+    return sum_rows;
+}
+
+
 #endif
