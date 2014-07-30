@@ -36,6 +36,9 @@ class Matrix {
         // Matrix-Vector multiplication
         vector<int> ColVectorMultiply(vector<int> vec);
         vector<int> RowVectorMultiply(vector<int> vec);
+
+        // Matrix-Matrix multiplication
+        Matrix NaiveMultiply(Matrix B);
 };
 
 #include "matrix.cpp"

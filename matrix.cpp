@@ -161,5 +161,31 @@ vector<int> Matrix::RowVectorMultiply(vector<int> vec) {
     return sum_rows;
 }
 
+// Naive (ijk algorithm) for multiplying 2 matrices
+Matrix Matrix::NaiveMultiply(Matrix B) {
+    int result_rows = this->rows;
+    int result_cols = B.GetNumCols();
+    Matrix result(result_rows, result_cols, 1);
+
+    if(this->cols != B.GetNumRows()) {
+        cout << "Incompatible dimensions!\n";
+        Matrix incompatible_result(1, 1, -1);
+        return incompatible_result;
+    }
+
+    for(int i = 0; i < this->rows; ++i) {
+        for(int j = 0; j < B.GetNumCols(); ++j) {
+            int temp = 0;
+            for(int k = 0; k < this->cols; ++k) {
+                temp += (this->matrix[i][k] * B.matrix[k][j]);
+            }
+            result.matrix[i][j] = temp;
+        }
+    }
+
+    return result;
+
+
+}
 
 #endif

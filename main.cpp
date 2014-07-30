@@ -48,5 +48,10 @@ int main()
         cout << result_row_vec_mult[i] << "  ";
     cout << "\n";
 
+    // Test for matrox-matrix multiplication
+    Matrix product_matrix = mat1.NaiveMultiply(mat2);
+    product_matrix.Display();
+
+    
     return 0;
 }
