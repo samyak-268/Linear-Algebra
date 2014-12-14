@@ -41,6 +41,5 @@ class Matrix {
         Matrix NaiveMultiply(Matrix B);
 };
 
-#include "matrix.cpp"
 
 #endif
