@@ -5,7 +5,8 @@ using namespace std;
 int main()
 {
     Matrix mat1(3, 3, 1);
-    Matrix mat2(3, 3, 2);
+    // Matrix mat2(3, 3, 2);
+    Matrix mat2(3, 3, "matrix2.txt");
     
     // Test for scalar matrix multiplication
     mat1.ScalarMultiply(5);

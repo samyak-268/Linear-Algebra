@@ -2,6 +2,7 @@
 #define _MATRIX_H
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Matrix {
@@ -12,6 +13,7 @@ class Matrix {
 
     public:
         Matrix(unsigned _rows, unsigned _cols, int _init_value);
+        Matrix(unsigned _rows, unsigned _cols, const string filename);
         Matrix(const Matrix& obj);
         ~Matrix();
 
