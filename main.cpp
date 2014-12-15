@@ -1,12 +1,22 @@
 #include "matrix.h"
+#include "commandline.h"
 #include <iostream>
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
+    Commandline parser(argc, argv);
+    if(!parser.doesCmdOptionExist("-input"))
+    {
+        cout << "Usage: ./LinearAlgebra [INPUT] where \n"
+            "[INPUT]\n\tThe input file containing the 3 X 3 matrix elements.\n\n";
+        return 1;
+    }
+    
     Matrix mat1(3, 3, 1);
-    // Matrix mat2(3, 3, 2);
-    Matrix mat2(3, 3, "matrix2.txt");
+    string input_file_path;
+    input_file_path = parser.getCommandOption("-input");
+    Matrix mat2(3, 3, input_file_path);
     
     // Test for scalar matrix multiplication
     mat1.ScalarMultiply(5);
