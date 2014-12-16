@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "commandline.h"
+#include "gaussj.h"
 #include <iostream>
 using namespace std;
 
@@ -30,7 +31,7 @@ int main(int argc, char** argv)
 
     // Test for setting and getting an element
     cout << mat_diff(2, 2) << "\n";
-    mat_diff(3, 2) = 100;
+    mat_diff(2, 2) = 100;
     mat_diff.Display(); cout << "\n";
 
     // Test for fetching row and column by their indices
@@ -68,6 +69,43 @@ int main(int argc, char** argv)
     Matrix product_matrix = mat1.NaiveMultiply(mat2);
     product_matrix.Display();
 
-    
+    Matrix mat3(3, 3, 0);
+    mat3(0, 0) += 1;
+    mat3(1, 0) += 3;
+    mat3(2, 0) += 0;
+    mat3(0, 1) += 2;
+    mat3(1, 1) += 8;
+    mat3(2, 1) += 4;
+    mat3(0, 2) += 1;
+    mat3(1, 2) += 1;
+    mat3(2, 2) += 1;
+
+    Matrix mat5(3, 3, 0);
+    mat5(0, 0) += 1;
+    mat5(1, 0) += 3;
+    mat5(2, 0) += 0;
+    mat5(0, 1) += 2;
+    mat5(1, 1) += 8;
+    mat5(2, 1) += 4;
+    mat5(0, 2) += 1;
+    mat5(1, 2) += 1;
+    mat5(2, 2) += 1;
+
+    Matrix mat4(3, 1, 0);
+    mat4(0, 0) += 2;
+    mat4(1, 0) += 12;
+    mat4(2, 0) += 2;
+
+
+    mat3.Display(); cout << "\n";
+    mat4.Display(); cout << "\n";
+
+    GaussJordan(mat3, mat4);
+
+    mat3.Display(); cout << "\n";
+    mat4.Display(); cout << "\n";
+
+    Matrix p_matrix = mat3.NaiveMultiply(mat5);
+    p_matrix.Display();
     return 0;
 }
