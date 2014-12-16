@@ -28,9 +28,14 @@ int main(int argc, char** argv)
     mat_sum.Display();  cout << "\n";
     mat_diff.Display(); cout << "\n";
 
+    // Test for setting and getting an element
+    cout << mat_diff(2, 2) << "\n";
+    mat_diff(3, 2) = 100;
+    mat_diff.Display(); cout << "\n";
+
     // Test for fetching row and column by their indices
-    vector<int> second_row = mat1.GetRow(1);
-    vector<int> first_col = mat1.GetCol(0);
+    vector<double> second_row = mat1.GetRow(1);
+    vector<double> first_col = mat1.GetCol(0);
 
     cout << "\nThe second row of the matrix: \n";
     for(int i = 0; i < second_row.size(); ++i)
@@ -44,16 +49,16 @@ int main(int argc, char** argv)
 
     // Test for matrix-vector multiplication functions
     int col_array[] = {2, -1, 1};
-    vector<int> col_vec(col_array, (col_array + 3));
-    vector<int> result_col_vec_mult = mat1.ColVectorMultiply(col_vec);
+    vector<double> col_vec(col_array, (col_array + 3));
+    vector<double> result_col_vec_mult = mat1.ColVectorMultiply(col_vec);
     cout << "\nResult of multiplying the matrix with a column vector: \n";
     for(int i = 0; i < result_col_vec_mult.size(); ++i)
         cout << result_col_vec_mult[i] << "  ";
     cout << "\n";
 
     int row_array[] = {2, 1, 0};
-    vector<int> row_vec(row_array, (row_array + 3));
-    vector<int> result_row_vec_mult = mat1.RowVectorMultiply(row_vec);
+    vector<double> row_vec(row_array, (row_array + 3));
+    vector<double> result_row_vec_mult = mat1.RowVectorMultiply(row_vec);
     cout << "\nResult of multiplying the row vector with a matrix: \n";
     for(int i = 0; i < result_row_vec_mult.size(); ++i)
         cout << result_row_vec_mult[i] << "  ";
