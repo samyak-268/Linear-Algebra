@@ -7,37 +7,43 @@ using namespace std;
 
 class Matrix {
     private:
-        vector<vector<int> > matrix;
+        vector<vector<double> > matrix;
         unsigned rows;
         unsigned cols;
 
     public:
-        Matrix(unsigned _rows, unsigned _cols, int _init_value);
+        Matrix(unsigned _rows, unsigned _cols, double _init_value);
         Matrix(unsigned _rows, unsigned _cols, const string filename);
         Matrix(const Matrix& obj);
         ~Matrix();
 
         // Displaying matrix
         void Display();
-	
+	    
+        // Get 
+        double operator() (int r, int c) const;
+
+        // Set
+        double& operator() (int r, int c);
+
         // Basic Matrix mathematical operations
         Matrix operator+(const Matrix& rhs);
         Matrix& operator+=(const Matrix& rhs);
         Matrix operator-(const Matrix& rhs);
         Matrix& operator-=(const Matrix& rhs);
-        void ScalarMultiply(int scalar);
+        void ScalarMultiply(double scalar);
         
         // Acessing the row and column sizes
         unsigned GetNumRows() const;
         unsigned GetNumCols() const;
 
         // Acessing the row and columns by indices
-        vector<int> GetRow(int index);
-        vector<int> GetCol(int index);
+        vector<double> GetRow(int index);
+        vector<double> GetCol(int index);
 
         // Matrix-Vector multiplication
-        vector<int> ColVectorMultiply(vector<int> vec);
-        vector<int> RowVectorMultiply(vector<int> vec);
+        vector<double> ColVectorMultiply(vector<double> vec);
+        vector<double> RowVectorMultiply(vector<double> vec);
 
         // Matrix-Matrix multiplication
         Matrix NaiveMultiply(Matrix B);
