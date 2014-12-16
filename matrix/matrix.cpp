@@ -5,10 +5,11 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <stdexcept>
 #include "matrix.h"
 using namespace std;
 
-Matrix::Matrix(unsigned _rows, unsigned _cols, int _init_value)
+Matrix::Matrix(unsigned _rows, unsigned _cols, double _init_value)
 {
     rows = _rows;
     cols = _cols;
@@ -38,7 +39,7 @@ Matrix::Matrix(unsigned _rows, unsigned _cols, const string filename)
             matrix[i].resize(_cols);
             for(int j = 0; j < _cols; ++j)
             {
-                int entry;
+                double entry;
                 infile >> entry;
                 matrix[i][j] = entry;
             }
@@ -65,6 +66,26 @@ void Matrix::Display()
             cout << matrix[i][j] << "  ";
         }
         cout << "\n";
+    }
+}
+
+// Get 
+double Matrix::operator() (int r, int c) const {
+    if (r >= 0 && r < rows && c >= 0 && c < cols) {
+        return this->matrix[r][c];
+    }
+    else {
+        throw out_of_range("Index out of bounds!");
+    }
+}
+    
+// Set 
+double& Matrix::operator() (int r, int c) {
+    if (r >= 0 && r < rows && c >= 0 && c < cols) {
+        return this->matrix[r][c];
+    }
+    else {
+        throw out_of_range("Index out of bounds!");
     }
 }
 
@@ -125,7 +146,7 @@ Matrix& Matrix::operator-=(const Matrix& rhs)
 
 
 // Multiplication of a matrix by a scalar
-void Matrix::ScalarMultiply(int scalar)
+void Matrix::ScalarMultiply(double scalar)
 {
     for(unsigned i = 0; i < rows; ++i) {
         for(unsigned j = 0; j < cols; ++j) {
@@ -148,24 +169,24 @@ unsigned Matrix::GetNumCols() const
 }
 
 // Return the row at the specified index
-vector<int> Matrix::GetRow(int index)
+vector<double> Matrix::GetRow(int index)
 {
     return this->matrix[index];
 }
 
 // Return the column at the specified index
-vector<int> Matrix::GetCol(int index)
+vector<double> Matrix::GetCol(int index)
 {
-    vector<int> column;
+    vector<double> column;
     for(int i = 0; i < this->rows; ++i)
         column.push_back(this->matrix[i][index]);
     return column;
 }
 
 // Multiply a matrix with a column vector
-vector<int> Matrix::ColVectorMultiply(vector<int> vec)
+vector<double> Matrix::ColVectorMultiply(vector<double> vec)
 {
-    vector<int> result;
+    vector<double> result;
     result.resize(vec.size());
     
     if(this->cols != vec.size()) {
@@ -173,7 +194,7 @@ vector<int> Matrix::ColVectorMultiply(vector<int> vec)
         return result;
     }
 
-    int partial_sum;
+    double partial_sum;
     for(int i = 0; i < this->rows; ++i) {
         partial_sum = 0;
         for(int j = 0; j < this->cols; ++j)
@@ -185,9 +206,9 @@ vector<int> Matrix::ColVectorMultiply(vector<int> vec)
 }
 
 // Multiply a row vector with a matrix
-vector<int> Matrix::RowVectorMultiply(vector<int> vec)
+vector<double> Matrix::RowVectorMultiply(vector<double> vec)
 {
-    vector<int> curr_row, sum_rows;
+    vector<double> curr_row, sum_rows;
     curr_row.resize(vec.size());
     sum_rows.resize(vec.size(), 0);
 
@@ -221,7 +242,7 @@ Matrix Matrix::NaiveMultiply(Matrix B)
 
     for(int i = 0; i < this->rows; ++i) {
         for(int j = 0; j < B.GetNumCols(); ++j) {
-            int temp = 0;
+            double temp = 0;
             for(int k = 0; k < this->cols; ++k) {
                 temp += (this->matrix[i][k] * B.matrix[k][j]);
             }
@@ -230,8 +251,6 @@ Matrix Matrix::NaiveMultiply(Matrix B)
     }
 
     return result;
-
-
 }
 
 #endif
