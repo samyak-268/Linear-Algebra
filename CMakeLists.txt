@@ -5,9 +5,12 @@ set (LinearAlgebra_VERSION_MINOR 0)
 
 include_directories ("${PROJECT_SOURCE_DIR}/matrix")
 include_directories ("${PROJECT_SOURCE_DIR}/commandline")
+include_directories("${PROJECT_SOURCE_DIR}/gaussj")
 add_subdirectory(matrix)
 add_subdirectory(commandline)
+add_subdirectory(gaussj)
 
 add_executable (LinearAlgebra main.cpp)
 target_link_libraries(LinearAlgebra Matrix)
 target_link_libraries(LinearAlgebra Commandline)
+target_link_libraries(LinearAlgebra GaussJ)
