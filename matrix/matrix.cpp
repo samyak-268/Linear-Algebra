@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <iomanip>
 #include "matrix.h"
 using namespace std;
 
@@ -61,12 +62,21 @@ Matrix::~Matrix() {}
 // Display matrix
 void Matrix::Display()
 {
+    ios::fmtflags old_settings = cout.flags();
+    int old_precision = cout.precision();
+
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(4);
+
     for(unsigned i = 0; i < rows; ++i) {
         for(unsigned j = 0; j < cols; ++j) {
-            cout << matrix[i][j] << "  ";
+            cout << setw(10) << matrix[i][j] << "  ";
         }
         cout << "\n";
     }
+
+    cout.flags(old_settings);
+    cout.precision(old_precision);
 }
 
 // Get 
@@ -87,6 +97,17 @@ double& Matrix::operator() (int r, int c) {
     else {
         throw out_of_range("Index out of bounds!");
     }
+}
+
+// Identity matrix
+void Matrix::eye() {
+    vector<vector<double> >::iterator it((this->matrix).begin());
+
+    for (; it != (this->matrix).end(); ++it) 
+        fill((*it).begin(), (*it).end(), 0.0);
+
+    for (int i = 0; i < this->rows; i++)
+        this->matrix[i][i] = 1.0;
 }
 
 // Addition of two matrices

@@ -26,6 +26,9 @@ class Matrix {
         // Set
         double& operator() (int r, int c);
 
+        // Identity Matrix
+        void eye();
+
         // Basic Matrix mathematical operations
         Matrix operator+(const Matrix& rhs);
         Matrix& operator+=(const Matrix& rhs);
@@ -48,6 +51,5 @@ class Matrix {
         // Matrix-Matrix multiplication
         Matrix NaiveMultiply(Matrix B);
 };
-
 
 #endif
