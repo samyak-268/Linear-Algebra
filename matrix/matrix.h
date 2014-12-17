@@ -14,6 +14,7 @@ class Matrix {
     public:
         Matrix(unsigned _rows, unsigned _cols, double _init_value);
         Matrix(unsigned _rows, unsigned _cols, const string filename);
+        Matrix(vector<vector<double> > _matrix);
         Matrix(const Matrix& obj);
         ~Matrix();
 

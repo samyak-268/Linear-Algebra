@@ -23,8 +23,6 @@ Matrix::Matrix(unsigned _rows, unsigned _cols, double _init_value)
 
 Matrix::Matrix(unsigned _rows, unsigned _cols, const string filename)
 {
-    cout << "Correct constructor invoked!!\n"; 
-
     rows = _rows;
     cols = _cols;
     
@@ -48,6 +46,18 @@ Matrix::Matrix(unsigned _rows, unsigned _cols, const string filename)
     }
 
     infile.close();
+}
+
+Matrix::Matrix(vector<vector<double> > _matrix) {
+    rows = _matrix.size();
+    cols = _matrix[0].size();
+
+    matrix.resize(rows);
+    for(int i = 0; i < rows; ++i) {
+        matrix[i].resize(cols, 0);
+        for(int j = 0; j < cols; ++j)
+            matrix[i][j] = _matrix[i][j];
+    }
 }
 
 Matrix::Matrix(const Matrix& obj)
