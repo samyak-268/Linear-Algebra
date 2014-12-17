@@ -83,7 +83,6 @@ void LUDecompose(Matrix& A, Matrix& L, Matrix& U, vector<int>& P) {
 			for (ll = 0; ll < n; ll++) 
 				U(i, ll) = U(i, ll) + (-L(i, j) * U(j, ll));
 		}
-		
 	}
 }
 
