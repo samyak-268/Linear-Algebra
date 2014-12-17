@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include "commandline.h"
 #include "gaussj.h"
+#include "ludec.h"
 #include <iostream>
 using namespace std;
 
@@ -69,43 +70,44 @@ int main(int argc, char** argv)
     Matrix product_matrix = mat1.NaiveMultiply(mat2);
     product_matrix.Display();
 
-    Matrix mat3(3, 3, 0);
-    mat3(0, 0) += 1;
-    mat3(1, 0) += 3;
-    mat3(2, 0) += 0;
-    mat3(0, 1) += 2;
-    mat3(1, 1) += 8;
-    mat3(2, 1) += 4;
-    mat3(0, 2) += 1;
-    mat3(1, 2) += 1;
-    mat3(2, 2) += 1;
+    Matrix A(4, 4, 0);
+    A(0, 0) += 1;
+    A(1, 0) += 2;
+    A(2, 0) += -3;
+    A(3, 0) += -1;
+    A(0, 1) += 2;
+    A(1, 1) += 4;
+    A(2, 1) += -5;
+    A(3, 1) += 2;
+    A(0, 2) += -1;
+    A(1, 2) += -2;
+    A(2, 2) += 6;
+    A(3, 2) += 8;
+    A(0, 3) += 0;
+    A(1, 3) += -1;
+    A(2, 3) += 1;
+    A(3, 3) += -2;
+    
+    cout << "A: \n";
+    A.Display(); cout << "\n";
 
-    Matrix mat5(3, 3, 0);
-    mat5(0, 0) += 1;
-    mat5(1, 0) += 3;
-    mat5(2, 0) += 0;
-    mat5(0, 1) += 2;
-    mat5(1, 1) += 8;
-    mat5(2, 1) += 4;
-    mat5(0, 2) += 1;
-    mat5(1, 2) += 1;
-    mat5(2, 2) += 1;
+    Matrix L(4, 4, 0);
+    Matrix U(4, 4, 0);
+    vector<int> P(4, 0);
 
-    Matrix mat4(3, 1, 0);
-    mat4(0, 0) += 2;
-    mat4(1, 0) += 12;
-    mat4(2, 0) += 2;
+    LUDecompose(A, L, U, P);
 
+    cout << "L: \n";
+    L.Display(); cout << "\n";
+    cout << "U: \n";
+    U.Display(); cout << "\n";
 
-    mat3.Display(); cout << "\n";
-    mat4.Display(); cout << "\n";
+    Matrix Perm(4, 4, 0);
 
-    GaussJordan(mat3, mat4);
+    for (int i = 0; i < P.size(); i++)
+        Perm(i, P[i]) = 1;
+    cout << "P: \n";
+    Perm.Display(); cout << "\n";
 
-    mat3.Display(); cout << "\n";
-    mat4.Display(); cout << "\n";
-
-    Matrix p_matrix = mat3.NaiveMultiply(mat5);
-    p_matrix.Display();
     return 0;
 }
