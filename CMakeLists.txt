@@ -12,5 +12,5 @@ add_subdirectory(gaussj)
 
 add_executable (LinearAlgebra main.cpp)
 target_link_libraries(LinearAlgebra Matrix)
-target_link_libraries(LinearAlgebra Commandline)
 target_link_libraries(LinearAlgebra GaussJ)
+target_link_libraries(LinearAlgebra GaussJAbKDs)
