@@ -22,25 +22,17 @@ class GaussJ
          * (1) Matrix augmentMatrix()
          *      Returns the augmented matrix by concatenating b as a column with A
          * 
-         * (2) void scaleRow(int row_idx, double multiplier)
-         *      Multiplies every element in row_idx-th row with multiplier
-         *
-         * (3) void addRows(int idx_1, int idx_2)
-         *      Adds row numbered idx_1 with row numbered idx_2 and saves the result in idx_1
-         *
-         * (4) void swapRows(int idx_1, int idx_2)
-         *      Swaps the contents of the 2 rows numbered idx_1 and idx_2
+         * (2) void swapRows(Matrix& matrix, int idx_1, int idx_2)
+         *      Swaps the contents of the 2 rows numbered idx_1 and idx_2 in matrix
          */
         
         Matrix augmentMatrix();
-        void scaleRow(int row_idx, double multiplier);
-        void addRows(int idx_1, int idx_2);
-        void swapRows(int idx_1, int idx_2);
+        void swapRows(Matrix& matrix, int idx_1, int idx_2);
 
 
     public:
         GaussJ(const Matrix& _A, const Matrix& _b);
-        void displayAugMatrix(const Matrix& aug);
+        vector<double> gaussElimination();
 };
 
 #endif

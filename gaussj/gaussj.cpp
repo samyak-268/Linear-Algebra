@@ -3,6 +3,8 @@
 
 #include "gaussj.h"
 #include <iostream>
+#include <cmath>
+#include <limits>
 using namespace std;
 
 GaussJ::GaussJ(const Matrix& _A, const Matrix& _b)
@@ -31,39 +33,62 @@ Matrix GaussJ::augmentMatrix()
     return aug;
 }
 
-void GaussJ::scaleRow(int row_idx, double multiplier)
+void GaussJ::swapRows(Matrix& matrix, int idx_1, int idx_2)
 {
-    for (int j = 0; j < A.GetNumCols(); ++j)
-        A(row_idx, j) *= multiplier;
-}
-
-void GaussJ::addRows(int idx_1, int idx_2)
-{
-    for (int j = 0; j < A.GetNumCols(); ++j)
-        A(idx_1, j) = A(idx_1, j) + A(idx_2, j);
-}
-
-void GaussJ::swapRows(int idx_1, int idx_2)
-{
-    int n = A.GetNumCols();
+    int n = matrix.GetNumCols();
     
     double temp;
     for(int j = 0; j < n; ++j)
     {
-        temp = A(idx_1, j);
-        A(idx_1, j) = A(idx_2, j);
-        A(idx_2, j) = temp;
+        temp = matrix(idx_1, j);
+        matrix(idx_1, j) = matrix(idx_2, j);
+        matrix(idx_2, j) = temp;
     }
 }
 
-void GaussJ::displayAugMatrix(const Matrix& aug)
+vector<double> GaussJ::gaussElimination()
 {
-    for(unsigned i = 0; i < aug.GetNumRows(); ++i) {
-        for(unsigned j = 0; j < aug.GetNumCols(); ++j) {
-            cout << aug(i, j) << "  ";
+    Matrix aug = augmentMatrix();
+    
+    for(int col_itr = 0; col_itr < N; ++col_itr)
+    {
+        // Search for maximum element in the column
+        double max_entry = aug(col_itr, col_itr);
+        int max_row = col_itr;
+
+        for(int row_itr = (col_itr+1); row_itr < N; ++row_itr)
+        {
+            if(fabs(aug(row_itr, col_itr)) >= max_entry + numeric_limits<double>::epsilon())
+            {
+                max_entry = fabs(aug(row_itr, col_itr));
+                max_row = row_itr;
+            }
         }
-        cout << "\n";
+
+        // Swap current row with the maximum-entry row
+        if(max_row != col_itr)
+            swapRows(aug, col_itr, max_row);
+
+        // Make all rows below the current row 0 in the current column
+        for(int row_itr = (col_itr+1); row_itr < N; ++row_itr)
+        {
+            double multiplier = -1.0 * (aug(row_itr, col_itr)/aug(col_itr, col_itr));
+            for(int col_itr2 = 0; col_itr2 < (N+1); ++col_itr2)
+            {
+                if(row_itr == col_itr2)
+                    aug(row_itr, col_itr2) = 0;
+                else
+                    aug(row_itr, col_itr2) += multiplier * aug(col_itr, col_itr2);
+            }
+        }
     }
+
+    // Solve the equations using the upper triangular matrix
+    vector<double> solutions;
+    solutions.resize(aug.GetNumRows(), 0.0);
+
+    return solutions;
+
 }
 
 #endif
