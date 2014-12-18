@@ -31,6 +31,17 @@ class GaussJ
 
 
     public:
+        /*
+         * (1) GaussJ(const Matrix& _A, const Matrix& _B)
+         *      Constructor that initializes the co-efficent and RHS matrix with the
+         *      values passed as arguments.
+         *
+         * (2) vector<double> gaussElimination()
+         *      This method performs the actual Gauss elimination steps to solve the system
+         *      of equations given by A and b. The solution is returned in the form of a 
+         *      vector of doubles representing the values of x1, x2, x3, ..., xn.
+         */
+
         GaussJ(const Matrix& _A, const Matrix& _b);
         vector<double> gaussElimination();
 };

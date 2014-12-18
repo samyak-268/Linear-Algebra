@@ -49,6 +49,7 @@ void GaussJ::swapRows(Matrix& matrix, int idx_1, int idx_2)
 vector<double> GaussJ::gaussElimination()
 {
     Matrix aug = augmentMatrix();
+    int N = aug.GetNumRows();
     
     for(int col_itr = 0; col_itr < N; ++col_itr)
     {
@@ -64,7 +65,7 @@ vector<double> GaussJ::gaussElimination()
                 max_row = row_itr;
             }
         }
-
+        
         // Swap current row with the maximum-entry row
         if(max_row != col_itr)
             swapRows(aug, col_itr, max_row);
@@ -73,9 +74,9 @@ vector<double> GaussJ::gaussElimination()
         for(int row_itr = (col_itr+1); row_itr < N; ++row_itr)
         {
             double multiplier = -1.0 * (aug(row_itr, col_itr)/aug(col_itr, col_itr));
-            for(int col_itr2 = 0; col_itr2 < (N+1); ++col_itr2)
+            for(int col_itr2 = col_itr; col_itr2 < (N+1); ++col_itr2)
             {
-                if(row_itr == col_itr2)
+                if(col_itr == col_itr2)
                     aug(row_itr, col_itr2) = 0;
                 else
                     aug(row_itr, col_itr2) += multiplier * aug(col_itr, col_itr2);
@@ -87,8 +88,13 @@ vector<double> GaussJ::gaussElimination()
     vector<double> solutions;
     solutions.resize(aug.GetNumRows(), 0.0);
 
+    for(int i = (N-1); i >= 0; --i)
+    {
+        solutions[i] = (aug(i, N) / aug(i, i));
+        for(int j = (i-1); j >= 0; --j)
+            aug(j, N) -= (solutions[i] * aug(j, i));
+    }
     return solutions;
-
 }
 
 #endif
