@@ -7,41 +7,33 @@ using namespace std;
 int main(int argc, char** argv)
 {
     /*
-     * Example of new Matrix constructor at work: Matrix::Matrix(vector<vector<double> > _matrix)
-     * Constructs a matrix object from the contents of a 2-D vector.
+     * Example of Gauss Elimination method of solving a system of linear equations.
      */
 
-    double X_array[][3] = {{1, 0, 0}, {0, 1, 1}, {0, 0, 1}};
-    double y_array[][1] = {{2}, {4}, {6}};
+    double X_array[][2] = {{1, 5}, {-2, -7}};
+    double y_array[][1] = {{7}, {-5}};
     
-    vector<vector<double> > X_vector(3);
-    vector<vector<double> > y_vector(3);
+    vector<vector<double> > X_vector(2);
+    vector<vector<double> > y_vector(2);
     
-    for(int i = 0; i < 3; ++i)
-        X_vector[i].assign(X_array[i], X_array[i] + 3);
-    for(int i = 0; i < 3; ++i)
+    for(int i = 0; i < 2; ++i)
+        X_vector[i].assign(X_array[i], X_array[i] + 2);
+    for(int i = 0; i < 2; ++i)
         y_vector[i].assign(y_array[i], y_array[i] + 1);
     
     Matrix X(X_vector);
     Matrix y(y_vector);
-    
-    cout << "X: \n";
-    X.Display();    cout << "\n";
-    
-    cout << "y: \n";
-    y.Display();    cout << "\n";
 
     GaussJ gaussj_obj(X, y);
-    Matrix aug = gaussj_obj.augmentMatrix();
+    vector<double> solutions = gaussj_obj.gaussElimination();
 
-    cout << "Augmented matrix: \n";
-    aug.Display();
-    cout << "\n";
+    cout << "Solutions: \n";
+    for(int i = 0; i < solutions.size(); ++i)
+        cout << "\tx" << (i+1) << " = " << solutions[i] << "\n";
 
     /*
      * Example demonstrating LU decomposition
      */
-    
     
     Matrix A(4, 4, 0);
     A(0, 0) += 1;
@@ -70,10 +62,12 @@ int main(int argc, char** argv)
 
     LUDecompose(A, L, U, P);
 
+
     cout << "L: \n";
     L.Display(); cout << "\n";
     cout << "U: \n";
     U.Display(); cout << "\n";
+    
 
     Matrix Perm(4, 4, 0);
 
