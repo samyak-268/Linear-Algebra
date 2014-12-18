@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include "gaussj.h"
 #include "ludec.h"
 #include <iostream>
 using namespace std;
@@ -29,6 +30,13 @@ int main(int argc, char** argv)
     
     cout << "y: \n";
     y.Display();    cout << "\n";
+
+    GaussJ gaussj_obj(X, y);
+    Matrix aug = gaussj_obj.augmentMatrix();
+
+    cout << "Augmented matrix: \n";
+    aug.Display();
+    cout << "\n";
 
     /*
      * Example demonstrating LU decomposition
