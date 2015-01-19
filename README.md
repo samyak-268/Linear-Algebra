@@ -1,5 +1,7 @@
 # Linear Algebra Library
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/samyak-268/Linear-Algebra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This library hosts C++ implementation of some of the routines which are most frequently encountered in Linear Algebra.
 
 ## Installation
